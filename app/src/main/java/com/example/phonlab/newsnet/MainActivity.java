@@ -2,6 +2,8 @@ package com.example.phonlab.newsnet;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -11,9 +13,8 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     List<String> articles;
-    ListView articlesList;
-
-    ArrayAdapter adapter;
+    RecyclerView recyclerView;
+    NewsAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         articles = new ArrayList<>();
-        articlesList = findViewById(R.id.article_list);
+        recyclerView = findViewById(R.id.article_recycler_view);
 
         articles.add("article #1");
         articles.add("article #2");
@@ -34,7 +35,8 @@ public class MainActivity extends AppCompatActivity {
         articles.add("article #9");
         articles.add("article #10");
 
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, articles);
-        articlesList.setAdapter(adapter);
+        adapter = new NewsAdapter(this, articles);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(adapter);
     }
 }
